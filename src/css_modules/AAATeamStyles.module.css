@@ -1,0 +1,347 @@
+/* Enhanced Team Section Styling with Modern Design Elements */
+
+:root {
+  /* Color Variables */
+  --primary-gradient: linear-gradient(135deg, #6366f1, #3b82f6);
+  --card-gradient: linear-gradient(145deg, #ffffff, #f5f7fa);
+  --card-hover-gradient: linear-gradient(145deg, #f5f7fa, #ffffff);
+  --heading-color: #1e293b;
+  --text-primary: #334155;
+  --text-secondary: #64748b;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-highlight: 0 0 15px rgba(59, 130, 246, 0.5);
+
+  /* Spacing Variables */
+  --spacing-xs: 10px;
+  --spacing-sm: 15px;
+  --spacing-md: 25px;
+  --spacing-lg: 40px;
+
+  /* Border Variables */
+  --border-radius-sm: 8px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+  --border-radius-full: 50%;
+}
+
+/* Main Container with Subtle Pattern Background */
+.container {
+  text-align: center;
+  padding: var(--spacing-lg);
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient header accent */
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--primary-gradient);
+  z-index: 1;
+}
+
+/* Enhanced typography for heading */
+.heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--heading-color);
+  margin-bottom: var(--spacing-sm);
+  position: relative;
+  display: inline-block;
+  text-transform: capitalize;
+  letter-spacing: -0.5px;
+}
+
+/* Fancy heading underline */
+.heading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 80px;
+  height: 4px;
+  background: var(--primary-gradient);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* Improved description styling */
+.description {
+  font-size: 1.125rem;
+  color: black;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.7;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: var(--spacing-md);
+}
+
+/* Enhanced grid layout */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  perspective: 1000px;
+  /* For 3D effects */
+}
+
+/* Team member card */
+.teamMember {
+  text-align: center;
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  background: var(--card-gradient);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+}
+
+/* Enhanced hover effects */
+.teamMember:hover {
+  transform: translateY(-15px) rotateX(5deg);
+  box-shadow: var(--shadow-lg);
+  background: var(--card-hover-gradient);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Add a shine effect on hover */
+.teamMember::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0));
+  transform: rotate(30deg);
+  transition: transform 0.7s ease;
+  opacity: 0;
+}
+
+.teamMember:hover::before {
+  opacity: 1;
+  transform: rotate(30deg) translate(50%, 50%);
+}
+
+/* Enhanced member image */
+.image {
+  width: 140px;
+  height: 140px;
+  border-radius: var(--border-radius-full);
+  margin: 0 auto var(--spacing-sm);
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+/* Image hover effect */
+.image:hover {
+  transform: scale(1.12) translateZ(20px);
+  box-shadow: var(--shadow-highlight);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Member name styling */
+.name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 4px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.teamMember:hover .name {
+  color: var(--accent-color);
+}
+
+/* Role badge styling */
+.role {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  background: var(--primary-gradient);
+  padding: 5px 12px;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.teamMember:hover .role {
+  transform: scale(1.05);
+  box-shadow: 0 3px 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Bio text styling */
+.bio {
+  font-size: 0.95rem;
+  color: black;
+  line-height: 1.6;
+  margin-top: var(--spacing-sm);
+  transition: color 0.3s ease;
+}
+
+.teamMember:hover .bio {
+  color: var(--text-primary);
+}
+
+/* Social media icons section (if needed) */
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: var(--spacing-md);
+}
+
+.socialIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  background: var(--accent-color);
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .teamGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .heading {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .heading {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .name {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-sm);
+  }
+
+  .teamGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .heading {
+    font-size: 1.8rem;
+  }
+}
+
+/* Animation for card entry (if needed) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.teamMember {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Add staggered animation delay for each team member */
+.teamMember:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.teamMember:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.teamMember:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.teamMember:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.teamMember:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.teamMember:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.teamMember:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.teamMember:nth-child(8) {
+  animation-delay: 0.8s;
+}

@@ -1,0 +1,303 @@
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.authWrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Keep column layout for mobile and desktop */
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #f3f4f6, #e0e7ff);
+  background-size: 400% 400%;
+  padding: 2px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: gradientShift 15s ease infinite, fadeIn 1s ease;
+}
+
+
+/* Wallet button container */
+.walletButtonContainer {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+  /* Space between wallet button and form */
+  text-align: center;
+  animation: slideInUp 0.6s ease;
+}
+
+/* Wallet button styling */
+.walletButton {
+  width: auto;
+  padding: 10px 20px;
+  background: #0f3460;
+  color: #ffffff;
+  border: 2px solid #e94560;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.walletButton:hover {
+  background: #e94560;
+  color: white;
+  border-color: #e94560;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(233, 69, 96, 0.3);
+}
+
+.walletButton:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.walletButton:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+.walletButton:active {
+  background: #c83752;
+  color: white;
+  border-color: #c83752;
+  transform: translateY(1px);
+}
+
+.walletButton:disabled {
+  background: #2c394b;
+  color: #9ba4b4;
+  border-color: #4a5568;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.authWrapper>div {
+  width: 100%;
+  /* max-width: 500px; */
+  /* padding: 30px; */
+  /* background: white; */
+  /* border-radius: 10px; */
+  /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
+  text-align: center;
+  font-family: Arial, sans-serif;
+  animation: slideInUp 0.8s ease;
+}
+
+.authWrapper h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  /* color: #ffffff; */
+  animation: slideInUp 0.5s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.authWrapper button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #fcae07;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.authWrapper button:hover {
+  background: #3a3838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(200, 55, 82, 0.3);
+}
+
+.authWrapper button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(200, 55, 82, 0.2);
+}
+
+.authWrapper button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.authWrapper button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+.authWrapper button:disabled {
+  background: #2c394b;
+  color: #9ba4b4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.loadingMessage {
+  color: white;
+  font-size: 16px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Loading spinner */
+.loadingSpinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s linear infinite;
+}
+
+/* Button flash effect for important actions */
+.flashButton {
+  animation: pulse 2s infinite;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .authWrapper {
+    padding: 15px;
+    /* Reduce padding for compact view */
+  }
+
+  .walletButtonContainer {
+    max-width: 90%;
+    /* Adjust width for smaller screens */
+    margin-bottom: 15px;
+    /* Reduce space for compact view */
+  }
+
+  .walletButton {
+    font-size: 14px;
+    /* Adjust font size for smaller screens */
+    padding: 8px 15px;
+    /* Reduce padding */
+  }
+
+  .authWrapper>div {
+    max-width: 100%;
+    /* Adjust width for smaller screens */
+    padding: 20px;
+    /* Adjust padding for mobile */
+  }
+
+  .authWrapper h1 {
+    font-size: 24px;
+    /* Reduce font size for readability */
+  }
+
+  .authWrapper button {
+    font-size: 14px;
+    /* Adjust button font size */
+    padding: 8px;
+    /* Adjust padding for smaller screens */
+  }
+}

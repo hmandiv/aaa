@@ -1,0 +1,87 @@
+.container {
+  max-width: 800px;
+  min-height: 72vh;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.heading {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.loading,
+.error,
+.noAirdrops {
+  font-size: 16px;
+  color: #777;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.error {
+  color: #d9534f;
+}
+
+.noAirdrops {
+  color: #5bc0de;
+}
+
+.airdropList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  max-height: 62vh;
+  overflow-y: auto;
+}
+
+.airdropCard {
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.airdropCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tokenName {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.tokenId {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .container {
+    min-height: 52vh;
+  }
+}

@@ -1,0 +1,125 @@
+.dashboard {
+  width: 100%;
+  max-width: 600px;
+  margin: 2em auto;
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Dashboard Title */
+.dashboardTitle {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Dashboard Info Section */
+.dashboardInfo {
+  margin-bottom: 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  overflow-wrap: break-word;
+}
+
+/* Referrals Section */
+.dashboardReferrals {
+  margin: 20px 0;
+}
+
+.dashboardReferrals h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Referral List */
+.referralList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.referralItem {
+  padding: 8px 10px;
+  background: #e9f5ff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  color: #007bff;
+}
+
+.noReferrals {
+  color: #777;
+  font-style: italic;
+}
+
+/* Action Buttons Section */
+.dashboardActions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.actionButton {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.actionButton:hover {
+  background: #0056b3;
+}
+
+.actionButton:active {
+  background: #003f88;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px; /* Reduce padding for smaller screens */
+    margin: 1em auto; /* Adjust spacing */
+  }
+
+  .dashboardTitle {
+    font-size: 24px; /* Reduce font size for smaller screens */
+    margin-bottom: 15px; /* Adjust spacing */
+  }
+
+  .dashboardInfo {
+    font-size: 14px; /* Reduce font size */
+    margin-bottom: 15px; /* Adjust spacing */
+  }
+
+  .dashboardReferrals h3 {
+    font-size: 18px; /* Adjust referral section title font size */
+    margin-bottom: 8px; /* Reduce spacing */
+  }
+
+  .referralItem {
+    padding: 6px 8px; /* Reduce padding for compact view */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .dashboardActions {
+    flex-direction: column; /* Stack buttons vertically for mobile */
+    gap: 10px; /* Maintain consistent spacing */
+  }
+
+  .actionButton {
+    font-size: 14px; /* Adjust font size */
+    padding: 8px; /* Reduce padding */
+  }
+}

@@ -1,0 +1,595 @@
+/* Enhanced Buy/Sell Container with Modern Design Elements */
+
+:root {
+  /* Color Palette */
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb);
+  --accent: #10b981;
+  --accent-gradient: linear-gradient(135deg, #10b981, #059669);
+  --secondary: #8b5cf6;
+  --secondary-gradient: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+
+  /* Typography */
+  --font-heading: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Animations */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+}
+
+/* Main Container with Enhanced Styling */
+.buySellContainer {
+  padding: 2.5rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background: var(--light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+  color: var(--dark);
+}
+
+/* Background gradient accent */
+.buySellContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--primary-gradient);
+  z-index: 1;
+}
+
+/* Background grid pattern */
+.buySellContainer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: -1;
+  opacity: 0.4;
+}
+
+/* Enhanced Page Header */
+.pageHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  padding-bottom: 1.5rem;
+}
+
+.pageHeader h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0 0 1rem;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.pageHeader p {
+  font-size: 1.125rem;
+  color: var(--gray-500);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.pageHeader::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/* Enhanced Section Styling */
+.section {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  border: 1px solid var(--gray-200);
+  position: relative;
+}
+
+.section:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.section h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/* Enhanced Section Icon */
+.sectionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--primary-light);
+  color: white;
+  border-radius: var(--radius-full);
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+  box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15);
+}
+
+/* Enhanced Lists */
+.walletList,
+.guideList {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.walletList li,
+.guideList li {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-smooth);
+  border-left: 4px solid var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.walletList li:hover,
+.guideList li:hover {
+  background: var(--gray-200);
+  transform: translateX(5px);
+}
+
+.walletList a,
+.guideList a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color var(--transition-fast);
+  position: relative;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+.walletList a::after,
+.guideList a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: width var(--transition-smooth);
+}
+
+.walletList a:hover,
+.guideList a:hover {
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.walletList a:hover::after,
+.guideList a:hover::after {
+  width: 100%;
+}
+
+/* List item icons */
+.walletList li::before,
+.guideList li::before {
+  content: "→";
+  margin-right: 0.75rem;
+  color: var(--primary);
+  font-weight: bold;
+  transition: transform var(--transition-fast);
+}
+
+.walletList li:hover::before,
+.guideList li:hover::before {
+  transform: translateX(3px);
+}
+
+/* Enhanced Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: var(--radius-md);
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all var(--transition-bounce);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 14px rgba(59, 130, 246, 0.3);
+  background: var(--primary-dark);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+/* Button shine effect */
+.button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(to right,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0));
+  transform: rotate(30deg);
+  transition: transform 0.7s ease;
+  opacity: 0;
+}
+
+.button:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(50%, 50%);
+}
+
+/* Secondary button style */
+.buttonSecondary {
+  background: var(--secondary-gradient);
+  box-shadow: 0 4px 6px rgba(139, 92, 246, 0.25);
+}
+
+.buttonSecondary:hover {
+  background: #7c3aed;
+  box-shadow: 0 7px 14px rgba(139, 92, 246, 0.3);
+}
+
+/* Accent button style */
+.buttonAccent {
+  background: var(--accent-gradient);
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+}
+
+.buttonAccent:hover {
+  background: #059669;
+  box-shadow: 0 7px 14px rgba(16, 185, 129, 0.3);
+}
+
+/* Enhanced Button Container */
+.swapButtonContainer {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Enhanced Video Container */
+.videoContainer {
+  margin-top: 2.5rem;
+  text-align: center;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+}
+
+.videoContainer h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.videoContainer h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+.video {
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.video:hover {
+  transform: scale(1.01);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Apply animations */
+.section {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.walletList li,
+.guideList li {
+  animation: slideInRight 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* Staggered list item animations */
+.walletList li:nth-child(1),
+.guideList li:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.walletList li:nth-child(2),
+.guideList li:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.walletList li:nth-child(3),
+.guideList li:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.walletList li:nth-child(4),
+.guideList li:nth-child(4) {
+  animation-delay: 0.25s;
+}
+
+.walletList li:nth-child(5),
+.guideList li:nth-child(5) {
+  animation-delay: 0.3s;
+}
+
+.walletList li:nth-child(6),
+.guideList li:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .buySellContainer {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .pageHeader {
+    margin-bottom: 2rem;
+  }
+
+  .pageHeader h1 {
+    font-size: 1.75rem;
+  }
+
+  .pageHeader p {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section h2 {
+    font-size: 1.25rem;
+  }
+
+  .sectionIcon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+
+  .walletList li,
+  .guideList li {
+    padding: 0.75rem;
+  }
+
+  .walletList a,
+  .guideList a {
+    font-size: 0.9rem;
+  }
+
+  .button {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .swapButtonContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .videoContainer {
+    padding: 1.5rem;
+  }
+
+  .videoContainer h3 {
+    font-size: 1.1rem;
+  }
+
+  .video {
+    height: 350px;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .buySellContainer {
+    padding: 0rem;
+    margin: 0.5rem;
+  }
+
+  .pageHeader {
+    margin-bottom: 1.5rem;
+  }
+
+  .pageHeader h1 {
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 0rem;
+    margin-bottom: 1rem;
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .sectionIcon {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.9rem;
+  }
+
+  .walletList li,
+  .guideList li {
+    padding: 0.625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .walletList a,
+  .guideList a {
+    font-size: 0.85rem;
+  }
+
+  .button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .videoContainer {
+    /* padding: 1rem; */
+    /* margin-top: 1.5rem; */
+  }
+
+  .videoContainer h3 {
+    font-size: 1rem;
+  }
+
+  .video {
+    height: 200px;
+  }
+}

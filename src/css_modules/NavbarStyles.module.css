@@ -1,0 +1,582 @@
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes underlineExpand {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 51, 153, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 51, 153, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 51, 153, 0);
+  }
+}
+
+/* Modern Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #6d28d9;
+  border-bottom: none;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: slideDown 0.4s ease-out;
+}
+
+.navbar:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Logo Styling */
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6d28d9;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.5px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px rgba(109, 40, 217, 0.3);
+}
+
+.tokenLogo {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  margin-right: 12px;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+}
+
+.logo:hover .tokenLogo {
+  transform: rotate(15deg);
+  border: 2px solid #6d28d9;
+  box-shadow: 0 0 15px rgba(109, 40, 217, 0.5);
+  animation: glowPulse 2s infinite;
+}
+
+/* Nav Links Styling */
+.navLinks {
+  display: flex;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.navLinks a {
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Subtle gradient top border */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6d28d9, #8b5cf6, #6d28d9);
+  z-index: 1;
+}
+
+/* Underline animation for links */
+.navLinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #6d28d9;
+  transition: width 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #6d28d9;
+  background-color: rgba(109, 40, 217, 0.06);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.navLinks a:hover::after {
+  width: 100%;
+  animation: underlineExpand 0.3s ease;
+}
+
+/* Active link state */
+.navLinks a.active {
+  color: #6d28d9;
+  background-color: rgba(109, 40, 217, 0.1);
+  font-weight: 600;
+}
+
+.navLinks a.active::after {
+  width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6d28d9;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+  background-color: rgba(109, 40, 217, 0.08);
+  transform: scale(1.1);
+}
+
+/* Dropdown Container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Toggle */
+.dropdownToggle {
+  color: #4b5563;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+/* Single consistent arrow for all dropdowns */
+.dropdownToggle svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.dropdownToggle:hover {
+  color: #6d28d9;
+  background-color: rgba(109, 40, 217, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Rotate the SVG arrow when dropdown is hovered */
+.dropdown:hover .dropdownToggle svg {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  background-color: white;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  min-width: 180px;
+  border-radius: 12px;
+  z-index: 1000;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: scaleIn 0.2s ease;
+}
+
+.dropdown:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown Links */
+.dropdownMenu a {
+  display: block;
+  padding: 12px 18px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #4b5563;
+  transition: all 0.2s ease;
+  position: relative;
+  border-left: 3px solid transparent;
+}
+
+.dropdownMenu a:hover {
+  background-color: rgba(109, 40, 217, 0.06);
+  color: #6d28d9;
+  border-left: 3px solid #6d28d9;
+  padding-left: 22px;
+}
+
+/* Add these styles to your NavbarStyles.module.css file */
+
+.scrollableDropdown {
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.scrollableDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollableDropdown::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.scrollableDropdown::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.scrollableDropdown::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .navLinks {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 0;
+    border-radius: 0 0 16px 16px;
+    max-height: 80vh;
+    /* Limit to 80% of viewport height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scrolling on iOS */
+    padding-bottom: 20px;
+    /* Add padding at bottom for better scrolling */
+  }
+
+  .navLinks.open {
+    display: flex;
+  }
+
+  /* Properly centered mobile nav items */
+  .navLinks>a,
+  .navLinks>.dropdown {
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+    border-bottom: 1px solid rgba(109, 40, 217, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Add background that alternates subtly between items */
+  .navLinks>a:nth-child(odd),
+  .navLinks>.dropdown:nth-child(odd) {
+    background-color: rgba(249, 250, 251, 0.7);
+  }
+
+  .navLinks>a:nth-child(even),
+  .navLinks>.dropdown:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Add top-bottom border indicators instead of left-right */
+  .navLinks>a,
+  .navLinks>.dropdown {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease, background-color 0.2s ease;
+  }
+
+  .navLinks>a:hover,
+  .navLinks>.dropdown:hover {
+    border-left: none;
+    border-bottom: 2px solid #6d28d9;
+    background-color: rgba(109, 40, 217, 0.05);
+  }
+
+  /* Active item styling */
+  .navLinks>a.active {
+    border-left: none;
+    border-bottom: 2px solid #6d28d9;
+    background-color: rgba(109, 40, 217, 0.08);
+  }
+
+  .navLinks a {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .navLinks a:last-child {
+    border-bottom: none;
+  }
+
+  .navLinks a::after {
+    display: none;
+  }
+
+  .navLinks a:hover {
+    transform: none;
+    background-color: rgba(109, 40, 217, 0.05);
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6d28d9;
+  }
+
+  /* Animation for hamburger icon */
+  .hamburger.open {
+    transform: rotate(90deg);
+  }
+
+  /* ===== FIXED MOBILE DROPDOWN SYSTEM WITH SCROLLING ===== */
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdownToggle {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 16px 20px;
+    border-radius: 0;
+    border-bottom: none;
+    position: relative;
+    /* Ensure it creates a stacking context */
+    z-index: 5;
+    /* Higher z-index to stay above dropdown content */
+    background-color: inherit;
+    /* Maintain background color */
+  }
+
+  .dropdownToggle:hover {
+    transform: none;
+  }
+
+  /* Position arrow consistently with centered text */
+  .dropdownToggle svg {
+    margin-left: 8px;
+    margin-right: 0;
+    transition: transform 0.3s ease;
+  }
+
+  /* Mobile dropdown styling with scrolling support */
+  .dropdownMenu {
+    position: static;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+    animation: none;
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+    background-color: rgba(109, 40, 217, 0.03);
+    padding: 0;
+    margin: 0;
+    border-bottom: none;
+    /* Remove ALL height limitations */
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Simple display toggle for mobile */
+  .dropdown.open .dropdownMenu {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Centered dropdown items */
+  .dropdownMenu a {
+    padding: 16px 20px;
+    display: flex;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-left: none;
+    border-bottom: 1px dashed rgba(109, 40, 217, 0.1);
+    font-size: 14px;
+    color: #4b5563;
+    background-color: rgba(109, 40, 217, 0.02);
+    min-height: 20px;
+    /* Ensure minimum height for tap targets */
+  }
+
+  /* Center the bullet points with text */
+  .dropdownMenu a::before {
+    content: '•';
+    color: #6d28d9;
+    display: inline-block;
+    margin-right: 8px;
+    opacity: 0.7;
+  }
+
+  .dropdownMenu a:hover {
+    background-color: rgba(109, 40, 217, 0.08);
+    border-left: none;
+    color: #6d28d9;
+  }
+
+  .dropdownMenu a:last-child {
+    border-bottom: none;
+  }
+
+  .dropdownMenu a:hover::before {
+    opacity: 1;
+  }
+
+  /* Visual indicator for active dropdown - centered */
+  .dropdown .dropdownToggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dropdown .dropdownToggle::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #6d28d9;
+    transition: width 0.3s ease;
+  }
+
+  .dropdown.open .dropdownToggle::after {
+    width: 30px;
+  }
+
+  .dropdown.open .dropdownToggle svg {
+    transform: rotate(180deg);
+  }
+
+  /* Add a subtle background to opened dropdown */
+  .dropdown.open .dropdownToggle {
+    background-color: rgba(109, 40, 217, 0.05);
+    color: #6d28d9;
+    font-weight: 600;
+  }
+
+  /* Final nav item styling */
+  .navLinks>a:last-child,
+  .navLinks>.dropdown:last-child {
+    border-bottom: none;
+  }
+
+  /* Only apply border radius if it's the last item AND not showing dropdown */
+  .navLinks>a:last-child,
+  .navLinks>.dropdown:last-child:not(.open) {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* Fix for last dropdown to ensure all items are visible */
+  .navLinks>.dropdown:last-child .dropdownMenu {
+    padding-bottom: 16px;
+    /* Add extra padding at bottom */
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+}

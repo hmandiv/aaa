@@ -1,0 +1,87 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.balanceSection,
+.donationSection,
+.qrSection {
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.loading,
+.error,
+.balance {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.addressContainer {
+  margin-bottom: 20px;
+}
+
+.addressLabel {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.address {
+  font-size: 1.2rem;
+  word-break: break-word;
+}
+
+.inputContainer {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.input {
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.toggleButton {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.qrSection {
+  text-align: center;
+}
+
+.footer {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 40px;
+  color: #888;
+}

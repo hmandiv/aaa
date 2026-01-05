@@ -1,0 +1,906 @@
+/* Premium TokenBubblesStyles.module.css */
+
+/* Modern color system */
+:root {
+  --primary: #6366f1;
+  --primary-light: #818cf8;
+  --primary-lighter: #c7d2fe;
+  --primary-dark: #4f46e5;
+  --primary-gradient: linear-gradient(135deg, #4f46e5, #6366f1);
+
+  --success: #10b981;
+  --success-light: #34d399;
+  --success-dark: #059669;
+  --success-gradient: linear-gradient(135deg, #059669, #10b981);
+
+  --danger: #ef4444;
+  --danger-light: #f87171;
+  --danger-dark: #dc2626;
+  --danger-gradient: linear-gradient(135deg, #dc2626, #ef4444);
+
+  --warning: #f59e0b;
+  --warning-light: #fbbf24;
+  --warning-dark: #d97706;
+
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Main Container */
+.premiumContainer {
+  display: flex;
+  background: var(--gray-50);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  height: 600px;
+  margin: 2rem 0;
+  border: 1px solid var(--gray-200);
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Sidebar */
+.premiumSidebar {
+  width: 300px;
+  background: white;
+  border-right: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 5;
+  transition: width var(--transition-normal);
+}
+
+.sidebarHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+}
+
+.titleIcon {
+  color: var(--primary);
+  font-size: 1.25rem;
+  margin-right: 0.75rem;
+}
+
+.sidebarTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-800);
+}
+
+.refreshButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--gray-100);
+  transition: all var(--transition-normal);
+}
+
+.refreshButton:hover {
+  background: var(--gray-200);
+}
+
+.refreshIcon {
+  color: var(--gray-600);
+  font-size: 1rem;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Interval Selector */
+.intervalSelector {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.selectorLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--gray-700);
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.selectorIcon {
+  margin-right: 0.5rem;
+  color: var(--primary);
+  font-size: 0.875rem;
+}
+
+.intervalOptions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.intervalButton {
+  flex: 1;
+  padding: 0.625rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+}
+
+.intervalButton:hover {
+  background: var(--gray-200);
+}
+
+.activeInterval {
+  background: var(--primary-gradient);
+  color: white;
+  border-color: var(--primary-dark);
+}
+
+.activeInterval:hover {
+  background: var(--primary-gradient);
+  opacity: 0.95;
+}
+
+/* Token Selector Toggle */
+.selectorToggle {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.selectorToggle:hover {
+  background: var(--gray-100);
+}
+
+/* Token Selector */
+.tokenSelector {
+  padding: 0;
+  border-bottom: 1px solid var(--gray-200);
+  animation: slideDown var(--transition-normal);
+  background: white;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tokenSelectorHeader {
+  padding: 1rem 1.5rem;
+  background: var(--gray-50);
+}
+
+.searchContainer {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  font-size: 0.875rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 0.75rem 0.75rem 2.25rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  transition: all var(--transition-normal);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-lighter);
+}
+
+.filterButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filterButton {
+  flex: 1;
+  padding: 0.5rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.filterButton:hover {
+  background: var(--gray-200);
+}
+
+.activeFilter:nth-child(1) {
+  background: var(--success-light);
+  color: var(--success-dark);
+  border-color: var(--success);
+}
+
+.activeFilter:nth-child(2) {
+  background: var(--danger-light);
+  color: var(--danger-dark);
+  border-color: var(--danger);
+}
+
+.selectionCount {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  text-align: center;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--gray-200);
+}
+
+.countHighlight {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.tokenList {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-400) var(--gray-100);
+}
+
+.tokenList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tokenList::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+.tokenList::-webkit-scrollbar-thumb {
+  background-color: var(--gray-400);
+  border-radius: 6px;
+}
+
+.tokenListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.tokenListItem:hover {
+  background: var(--gray-100);
+}
+
+.selectedToken {
+  background: var(--primary-lighter) !important;
+}
+
+.tokenInfo {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.tokenLogo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  background: white;
+  padding: 2px;
+  border: 1px solid var(--gray-200);
+  object-fit: contain;
+}
+
+.tokenName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-800);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+}
+
+.tokenChange {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 65px;
+}
+
+.positiveChange {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.negativeChange {
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.checkIcon {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.noResults {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--gray-500);
+  font-style: italic;
+}
+
+/* Legend */
+.legendContainer {
+  padding: 1.25rem 1.5rem;
+  margin-top: auto;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.legendTitle {
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.legendBubble {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+}
+
+.legendInfo {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  margin-top: 0.5rem;
+}
+
+/* Bubbles Container */
+.bubblesContainer {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  background: linear-gradient(to bottom right, #f8faff, #f0f4ff);
+}
+
+/* Bubble Styles */
+.bubbleLink {
+  text-decoration: none;
+}
+
+.tokenBubble {
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-bounce), box-shadow var(--transition-normal);
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+}
+
+.tokenBubble:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000 !important;
+}
+
+.bubbleLogo {
+  border-radius: 50%;
+  margin-bottom: 4px;
+  background-color: white;
+  padding: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+
+.bubbleName {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+.bubbleChange {
+  font-weight: 700;
+}
+
+/* Loading, Error, and Empty States */
+.loadingState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(99, 102, 241, 0.2);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loadingText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+.errorState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  max-width: 300px;
+}
+
+.errorIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--danger-light);
+  color: var(--danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.errorText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.retryButton {
+  padding: 0.625rem 1.25rem;
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all var(--transition-normal);
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.emptyState {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  max-width: 300px;
+}
+
+.emptyIcon {
+  color: var(--gray-400);
+  margin-bottom: 0.5rem;
+}
+
+.emptyText {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.emptySubtext {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .premiumContainer {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .premiumSidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .bubblesContainer {
+    min-height: 500px;
+    height: 500px;
+  }
+
+  .tokenList {
+    max-height: 250px;
+  }
+
+  .tokenName {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .premiumContainer {
+    margin: 1rem 0;
+  }
+
+  .sidebarHeader {
+    padding: 1.25rem;
+  }
+
+  .intervalSelector,
+  .selectorToggle,
+  .tokenSelectorHeader,
+  .legendContainer {
+    padding: 1rem;
+  }
+
+  .tokenListItem {
+    padding: 0.75rem 1rem;
+  }
+
+  .bubblesContainer {
+    min-height: 400px;
+    height: 400px;
+  }
+
+  .tokenName {
+    max-width: 80px;
+  }
+
+  /* Mobile bubble layout */
+  .mobile-container {
+    flex-direction: column !important;
+    height: auto !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+
+  .mobile-sidebar {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--gray-200) !important;
+    padding: 1rem !important;
+    animation: slideDown 0.4s ease-out !important;
+  }
+
+  .mobile-bubbles-container {
+    min-height: 350px !important;
+    height: auto !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    animation: fadeIn 0.5s ease-out !important;
+  }
+
+  .mobile-bubble {
+    position: static !important;
+    display: inline-block !important;
+    margin: 5px !important;
+    transform: scale(0.8) !important;
+    transition: box-shadow 0.2s ease !important;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards !important;
+  }
+
+  .mobile-bubble:nth-child(7n+1) {
+    animation:
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType1 3.7s ease-in-out infinite !important;
+  }
+
+  .mobile-bubble:nth-child(7n+2) {
+    animation:
+      popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards,
+      floatType2 4.3s ease-in-out infinite !important;
+  }
+
+  .mobile-loading {
+    flex-direction: column !important;
+    align-items: center !important;
+    animation: pulse 1.5s infinite alternate !important;
+  }
+}
+
+/* Add these mobile-specific adjustments to your existing CSS */
+
+@media (max-width: 768px) {
+  /* Existing mobile styles... */
+
+  /* Adjustments for bubble positioning */
+  .mobile-bubbles-container {
+    padding: 0 0 0 10px !important;
+    /* Add left padding and remove any right padding */
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    /* Align bubbles to the left */
+    align-content: flex-start !important;
+  }
+
+  .mobile-bubble {
+    margin: 8px !important;
+    /* Equal margins all around */
+    position: relative !important;
+    /* Use relative instead of static for better control */
+    left: 0 !important;
+    /* Reset any left positioning */
+    right: auto !important;
+    /* Reset any right positioning */
+  }
+
+  /* Container for bubbles to ensure proper scrolling */
+  .bubblesContainer {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding-bottom: 20px !important;
+    /* Add some bottom padding for better scrolling */
+    scrollbar-width: thin !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* To prevent overflow issues */
+  .tokenBubble {
+    transform-origin: center !important;
+    /* Ensure scaling happens from center */
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Additional small-screen adjustments */
+  .mobile-bubbles-container {
+    padding: 0 0 0 5px !important;
+    /* Less padding on very small screens */
+  }
+
+  .mobile-bubble {
+    margin: 6px !important;
+    /* Smaller margins on very small screens */
+  }
+
+  /* Make scrollbar more visible on mobile but not intrusive */
+  .bubblesContainer::-webkit-scrollbar {
+    height: 4px !important;
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .bubblesContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15) !important;
+    border-radius: 4px !important;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  from {
+    opacity: 0.7;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Floating animations */
+@keyframes floatType1 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-2px, -15px);
+  }
+}
+
+@keyframes floatType2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(3px, -7px);
+  }
+}
+
+@keyframes floatType3 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-4px, -18px);
+  }
+}
+
+@keyframes floatType4 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(5px, -10px);
+  }
+}
+
+@keyframes floatType5 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-3px, -5px);
+  }
+}
+
+@keyframes floatType6 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(2px, -12px);
+  }
+}
+
+@keyframes floatType7 {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-1px, -20px);
+  }
+}
