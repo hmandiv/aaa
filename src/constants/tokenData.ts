@@ -361,4 +361,4 @@ export default [
   },
 ];
 
-export const siteKey = "6LfhNrAqAAAAAAQKEN9k7q3lPwo7nuHewzdaLIkm";
+export const siteKey = "6LciRUEsAAAAAG9GTGdLXM2tNb-1GpMwHjv_LnJN";
