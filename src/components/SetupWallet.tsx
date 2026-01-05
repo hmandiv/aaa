@@ -10,7 +10,7 @@ export const SetupWallet = ({ userId }: SetupWalletProps) => {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/config";
+  const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/config";
 
   const handleConnect = async (address: string) => {
     setWalletAddress(address);

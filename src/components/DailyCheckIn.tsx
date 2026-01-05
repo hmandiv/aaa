@@ -9,7 +9,7 @@ const DailyCheckIn = ({ userId }: { userId: string }) => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const handleCheckIn = async () => {
-    const BASE_URL = "https://aaa-api.onrender.com/api/v1/checkin";
+    const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/checkin";
     setLoading(true);
     try {
       const res = await axios.post(

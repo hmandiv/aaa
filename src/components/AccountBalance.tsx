@@ -11,7 +11,7 @@ export const AccountBalance = ({ userId }: AccountBalanceProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/pay";
+  const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/pay";
   const assetId = "2004387843"; // AAA Token Asset ID
   const vestigeApiUrl = `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`;
 

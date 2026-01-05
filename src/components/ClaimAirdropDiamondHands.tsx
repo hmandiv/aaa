@@ -8,7 +8,7 @@ import styles from "../css_modules/ClaimAirdropStyles.module.css";
 import { diamondHands } from "../constants/airdrops";
 
 export const ClaimAirdropDiamondHands = () => {
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+  const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/airdrop";
   const peraWallet = useContext(PeraWalletContext);
 
   const [airdrops, setAirdrops] = useState<
@@ -106,9 +106,9 @@ export const ClaimAirdropDiamondHands = () => {
 
       // Check if already opted in
       const accountInfo = await algodClient.accountInformation(address).do();
-      const optedInAssets = accountInfo['assets'] || [];
+      const optedInAssets = accountInfo["assets"] || [];
       const alreadyOptedIn = optedInAssets.some(
-        (asset: any) => asset['asset-id'] === Number(selectedAirdrop.tokenId)
+        (asset: any) => asset["asset-id"] === Number(selectedAirdrop.tokenId)
       );
 
       if (alreadyOptedIn) {
@@ -121,22 +121,25 @@ export const ClaimAirdropDiamondHands = () => {
 
       // Create opt-in transaction
       const suggestedParams = await algodClient.getTransactionParams().do();
-      const optInTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-        from: address,
-        to: address,
-        assetIndex: Number(selectedAirdrop.tokenId),
-        amount: 0, // Opt-in transaction has 0 amount
-        note: new Uint8Array(Buffer.from("AAA APP: Diamond Hands Airdrop Opt-In")),
-        suggestedParams,
-      });
+      const optInTxn =
+        algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+          from: address,
+          to: address,
+          assetIndex: Number(selectedAirdrop.tokenId),
+          amount: 0, // Opt-in transaction has 0 amount
+          note: new Uint8Array(
+            Buffer.from("AAA APP: Diamond Hands Airdrop Opt-In")
+          ),
+          suggestedParams,
+        });
 
       const singleTxnGroup = [{ txn: optInTxn, signers: [address] }];
       const signedTxn = await peraWallet.signTransaction([singleTxnGroup]);
       const { txId } = await algodClient.sendRawTransaction(signedTxn).do();
-      
+
       // Wait for confirmation
       await algosdk.waitForConfirmation(algodClient, txId, 4);
-      
+
       setSuccess("Successfully opted in to the asset!");
       setOptInComplete(true);
       setStep(3); // Move to claim step
@@ -216,13 +219,13 @@ export const ClaimAirdropDiamondHands = () => {
 
   const renderStepIndicator = () => (
     <div className={styles.stepIndicator}>
-      <div className={`${styles.step} ${step >= 1 ? styles.active : ''}`}>
+      <div className={`${styles.step} ${step >= 1 ? styles.active : ""}`}>
         1. Select
       </div>
-      <div className={`${styles.step} ${step >= 2 ? styles.active : ''}`}>
+      <div className={`${styles.step} ${step >= 2 ? styles.active : ""}`}>
         2. Opt-In
       </div>
-      <div className={`${styles.step} ${step >= 3 ? styles.active : ''}`}>
+      <div className={`${styles.step} ${step >= 3 ? styles.active : ""}`}>
         3. Claim
       </div>
     </div>
@@ -232,7 +235,7 @@ export const ClaimAirdropDiamondHands = () => {
     <div className={styles.container}>
       <h1 className={styles.heading}>Diamond Hands Airdrop</h1>
       {renderStepIndicator()}
-      
+
       {loading ? (
         <p className={styles.loading}>Loading available airdrops...</p>
       ) : (
@@ -280,8 +283,13 @@ export const ClaimAirdropDiamondHands = () => {
                   <p>{selectedAirdrop.shortDescription}</p>
                 </div>
                 <div className={styles.tokenDetails}>
-                  <p><strong>Token ID:</strong> {selectedAirdrop.tokenId}</p>
-                  <p><strong>Amount per claim:</strong> {selectedAirdrop.amountOfTokenPerClaim}</p>
+                  <p>
+                    <strong>Token ID:</strong> {selectedAirdrop.tokenId}
+                  </p>
+                  <p>
+                    <strong>Amount per claim:</strong>{" "}
+                    {selectedAirdrop.amountOfTokenPerClaim}
+                  </p>
                 </div>
               </div>
             )}
@@ -289,13 +297,13 @@ export const ClaimAirdropDiamondHands = () => {
 
           {error && <p className={styles.error}>{error}</p>}
           {success && <p className={styles.success}>{success}</p>}
-          
+
           {/* Step 2: Opt-In */}
           {step === 2 && selectedAirdrop && (
             <div className={styles.optInSection}>
               <h3>Step 2: Opt-In to Token</h3>
               <p>
-                Before claiming, you need to opt-in to the token 
+                Before claiming, you need to opt-in to the token
                 <strong> (ASA ID: {selectedAirdrop.tokenId})</strong>
               </p>
               <button
@@ -312,7 +320,10 @@ export const ClaimAirdropDiamondHands = () => {
           {step === 3 && selectedAirdrop && (
             <div className={styles.claimSection}>
               <h3>Step 3: Claim Airdrop</h3>
-              <p><strong>Diamond Hands Qualification:</strong> Only proven token holders are eligible</p>
+              <p>
+                <strong>Diamond Hands Qualification:</strong> Only proven token
+                holders are eligible
+              </p>
               <button
                 className={styles.button}
                 onClick={handleClaim}
@@ -325,9 +336,7 @@ export const ClaimAirdropDiamondHands = () => {
 
           {!walletConnected && (
             <p className={styles.warning}>
-              <strong>
-                Please connect wallet to claim the airdrop
-              </strong>
+              <strong>Please connect wallet to claim the airdrop</strong>
             </p>
           )}
         </>

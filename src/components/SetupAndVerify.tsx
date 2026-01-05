@@ -12,8 +12,8 @@ interface SetupAndVerifyProps {
 
 export const SetupAndVerify = ({ userId }: SetupAndVerifyProps) => {
   const BASE_SETUP_URL =
-    "https://aaa-api.onrender.com/api/v1/config/setup-wallet";
-  const BASE_VERIFY_URL = "https://aaa-api.onrender.com/api/v1/verify";
+    "https://aaa-api-4lv4.onrender.com/api/v1/config/setup-wallet";
+  const BASE_VERIFY_URL = "https://aaa-api-4lv4.onrender.com/api/v1/verify";
   const verificationAddress =
     "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
 

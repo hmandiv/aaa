@@ -88,7 +88,7 @@ const stableTVLAssetIDs = tokenData
   .map((token) => token.assetID);
 
 // API constants
-const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/airdrop";
 const PAGE_SIZE = 15;
 
 // API endpoint configuration with proper typing

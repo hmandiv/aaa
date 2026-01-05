@@ -20,7 +20,7 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
   const [processing, setProcessing] = useState(false);
   const verificationAddress =
     "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/verify";
+  const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/verify";
 
   useEffect(() => {
     if (userId) {
@@ -127,7 +127,8 @@ const VerificationPage = ({ userId }: VerificationPageProps) => {
     <div className={styles.container}>
       <h1 className={styles.title}>Verify Your Account</h1>
       <strong style={{ color: "red" }}>
-        Please go to Setup Wallet under Wallet section to setup your wallet first before verifying
+        Please go to Setup Wallet under Wallet section to setup your wallet
+        first before verifying
       </strong>
       .
       <p className={styles.description}>

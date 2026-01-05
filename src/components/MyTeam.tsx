@@ -24,7 +24,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
 
       // Fetch team data
       const teamResponse = await axios.post(
-        "https://aaa-api.onrender.com/api/v1/referrals/my-team",
+        "https://aaa-api-4lv4.onrender.com/api/v1/referrals/my-team",
         {
           userId,
           email: localStorage.getItem("userEmail"),
@@ -49,7 +49,7 @@ export const MyTeam = ({ userId }: MyTeamProps) => {
   const fetchVerifiedCount = async () => {
     try {
       const verifiedResponse = await axios.post(
-        "https://aaa-api.onrender.com/api/v1/referrals/verified-team-members",
+        "https://aaa-api-4lv4.onrender.com/api/v1/referrals/verified-team-members",
         {
           userId,
           email: localStorage.getItem("userEmail"),

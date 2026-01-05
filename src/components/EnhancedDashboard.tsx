@@ -53,7 +53,7 @@ const EnhancedDashboard: React.FC<EnhancedDashboardProps> = ({
   const [bypassWelcome, setBypassWelcome] = useState<boolean>(false);
 
   const apiClient = axios.create({
-    baseURL: "https://aaa-api.onrender.com/api/v1/members",
+    baseURL: "https://aaa-api-4lv4.onrender.com/api/v1/members",
     headers: { "Content-Type": "application/json" },
   });
 

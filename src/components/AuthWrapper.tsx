@@ -28,7 +28,7 @@ const AuthWrapper = () => {
 
   const apiClient = axios.create({
     baseURL: "http://localhost:5000/api/v1",
-    // baseURL: "https://aaa-api.onrender.com/api/v1",
+    // baseURL: "https://aaa-api-4lv4.onrender.com/api/v1",
     headers: { "Content-Type": "application/json" },
   });
 
@@ -53,7 +53,7 @@ const AuthWrapper = () => {
       }
       const response = await axios.post(
         `http://localhost:5000/api/v1/userDetails/get-user-details`,
-        // `https://aaa-api.onrender.com/api/v1/userDetails/get-user-details`,
+        // `https://aaa-api-4lv4.onrender.com/api/v1/userDetails/get-user-details`,
         {
           userId: savedUserId,
           email: savedEmail,

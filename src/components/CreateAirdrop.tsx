@@ -25,7 +25,7 @@ const icons = {
 };
 
 export const CreateAirdrop = () => {
-  const BASE_URL = "https://aaa-api.onrender.com/api/v1/airdrop";
+  const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/airdrop";
   const AIRDROP_FEE_ADDRESS =
     "HE7225SD6ZKYO45QWYCE4BZ3ITFEK7WI7XGMAVAMB56FZREJVPMHNRSL2E";
 
@@ -34,7 +34,9 @@ export const CreateAirdrop = () => {
   const [airdropType, setAirdropType] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [transactionStatus, setTransactionStatus] = useState<string | null>(null);
+  const [transactionStatus, setTransactionStatus] = useState<string | null>(
+    null
+  );
   const [walletAddress, setWalletAddress] = useState(null);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
@@ -55,7 +57,7 @@ export const CreateAirdrop = () => {
     { label: "Deposit", id: 3 },
     { label: "Complete", id: 4 },
   ];
-  
+
   // Handle airdrop type selection with animation
   const handleTypeSelect = (type: string | null) => {
     setAirdropType(type);
@@ -65,12 +67,11 @@ export const CreateAirdrop = () => {
     }, 300);
   };
 
-  const handleWalletConnect = (address: React.SetStateAction<null>) => setWalletAddress(address);
+  const handleWalletConnect = (address: React.SetStateAction<null>) =>
+    setWalletAddress(address);
   const handleWalletDisconnect = () => setWalletAddress(null);
 
-  const handleChange = (
-    e: { target: { name: any; value: any; }; }
-  ) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     if (["amountOfTokenPerClaim", "totalAmountOfTokens"].includes(name)) {
       if (!/^\d*$/.test(value)) return;
@@ -116,7 +117,7 @@ export const CreateAirdrop = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const suggestedParams = await algodClient.getTransactionParams().do();
       const txn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
         from: walletAddress,
@@ -187,7 +188,7 @@ export const CreateAirdrop = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const suggestedParams = await algodClient.getTransactionParams().do();
       const txn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
         from: walletAddress,
@@ -207,7 +208,7 @@ export const CreateAirdrop = () => {
       await algosdk.waitForConfirmation(algodClient, txId, 4);
 
       setTransactionStatus("✅ Token deposit successful!");
-      
+
       // Show success animation
       setShowSuccessAnimation(true);
       setTimeout(() => {
@@ -227,16 +228,13 @@ export const CreateAirdrop = () => {
     return (
       <div className={styles.progressTracker}>
         {steps.map((s) => (
-          <div 
-            key={s.id} 
+          <div
+            key={s.id}
             className={`${styles.progressStep} 
-              ${step === s.id ? styles.active : ''} 
-              ${step > s.id ? styles.completed : ''}`
-            }
+              ${step === s.id ? styles.active : ""} 
+              ${step > s.id ? styles.completed : ""}`}
           >
-            <div className={styles.progressDot}>
-              {step > s.id ? "" : s.id}
-            </div>
+            <div className={styles.progressDot}>{step > s.id ? "" : s.id}</div>
             <div className={styles.progressLabel}>{s.label}</div>
           </div>
         ))}
@@ -249,7 +247,7 @@ export const CreateAirdrop = () => {
       <h1 className={styles.heading}>
         <span>Airdrop Creator</span>
       </h1>
-      
+
       {/* Progress tracker */}
       {renderProgressTracker()}
 
@@ -257,8 +255,8 @@ export const CreateAirdrop = () => {
         <>
           <h2 className={styles.subheading}>Select Your Airdrop Type</h2>
           <p className={styles.description}>
-            Choose the most strategic airdrop type for your project goals.
-            Each option targets different user segments for maximum impact.
+            Choose the most strategic airdrop type for your project goals. Each
+            option targets different user segments for maximum impact.
           </p>
           <div className={styles.airdropOptions}>
             {[
@@ -304,11 +302,9 @@ export const CreateAirdrop = () => {
           {getAirdropRecommendation() && (
             <p className={styles.tip}>{getAirdropRecommendation()}</p>
           )}
-          
+
           <div className={styles.cardSection}>
-            <div className={styles.sectionTitle}>
-              Token Details
-            </div>
+            <div className={styles.sectionTitle}>Token Details</div>
             <form className={styles.form}>
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Token Name</label>
@@ -321,7 +317,7 @@ export const CreateAirdrop = () => {
                   onChange={handleChange}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Token ID</label>
                 <input
@@ -333,7 +329,7 @@ export const CreateAirdrop = () => {
                   onChange={handleChange}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Token Decimals</label>
                 <input
@@ -345,7 +341,7 @@ export const CreateAirdrop = () => {
                   onChange={handleChange}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Amount per Claim</label>
                 <input
@@ -357,7 +353,7 @@ export const CreateAirdrop = () => {
                   onChange={handleChange}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Total Token Amount</label>
                 <input
@@ -369,7 +365,7 @@ export const CreateAirdrop = () => {
                   onChange={handleChange}
                 />
               </div>
-              
+
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Description</label>
                 <textarea
@@ -386,14 +382,14 @@ export const CreateAirdrop = () => {
               </div>
             </form>
           </div>
-          
+
           {error && <p className={styles.error}>{error}</p>}
-          
+
           <PeraWalletButton
             onConnect={handleWalletConnect}
             onDisconnect={handleWalletDisconnect}
           />
-          
+
           <button
             className={styles.button}
             disabled={loading}
@@ -401,7 +397,7 @@ export const CreateAirdrop = () => {
           >
             {loading ? "Processing..." : "Pay Fee & Create Airdrop"}
           </button>
-          
+
           {transactionStatus && (
             <p className={styles.tip}>{transactionStatus}</p>
           )}
@@ -410,14 +406,18 @@ export const CreateAirdrop = () => {
 
       {step === 3 && (
         <>
-          <h2 className={styles.subheading}>Deposit Your Tokens By Clicking the Send Tokens Button below</h2>
-          
+          <h2 className={styles.subheading}>
+            Deposit Your Tokens By Clicking the Send Tokens Button below
+          </h2>
+
           <div className={styles.cardSection}>
             <div className={styles.sectionTitle}>Airdrop Summary</div>
             <div className={styles.summaryList}>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>Token:</span>
-                <span className={styles.summaryValue}>{formData.tokenName}</span>
+                <span className={styles.summaryValue}>
+                  {formData.tokenName}
+                </span>
               </div>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>Token ID:</span>
@@ -425,27 +425,30 @@ export const CreateAirdrop = () => {
               </div>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>Per Claim:</span>
-                <span className={styles.summaryValue}>{formData.amountOfTokenPerClaim}</span>
+                <span className={styles.summaryValue}>
+                  {formData.amountOfTokenPerClaim}
+                </span>
               </div>
               <div className={styles.summaryItem}>
                 <span className={styles.summaryLabel}>Total Tokens:</span>
-                <span className={styles.summaryValue}>{formData.totalAmountOfTokens}</span>
+                <span className={styles.summaryValue}>
+                  {formData.totalAmountOfTokens}
+                </span>
               </div>
             </div>
           </div>
-          
+
           <p className={styles.instructions}>
             Click the address below to copy, for your reference.
           </p>
-          
-          <div 
-            className={styles.walletAddress} 
-            onClick={copyToClipboard}
-          >
+
+          <div className={styles.walletAddress} onClick={copyToClipboard}>
             {AIRDROP_FEE_ADDRESS}
-            {copiedAddress && <span className={styles.copiedIndicator}>Copied!</span>}
+            {copiedAddress && (
+              <span className={styles.copiedIndicator}>Copied!</span>
+            )}
           </div>
-          
+
           <button
             className={`${styles.button} ${styles.buttonGold}`}
             disabled={loading}
@@ -453,13 +456,13 @@ export const CreateAirdrop = () => {
           >
             {loading ? "Sending..." : "Send Tokens"}
           </button>
-          
+
           {transactionStatus && (
             <p className={styles.tip}>{transactionStatus}</p>
           )}
-          
+
           {error && <p className={styles.error}>{error}</p>}
-          
+
           {showSuccessAnimation && (
             <div className={styles.successAnimation}>
               <div className={styles.successIcon}>✓</div>
@@ -467,20 +470,20 @@ export const CreateAirdrop = () => {
           )}
         </>
       )}
-      
+
       {step === 4 && (
         <>
           <div className={styles.successAnimation}>
             <div className={styles.successIcon}>🎉</div>
           </div>
-          
+
           <h2 className={styles.subheading}>Airdrop Successfully Created!</h2>
-          
+
           <p className={styles.description}>
             Your airdrop is now <strong>live</strong> and ready to be claimed by
             eligible users.
           </p>
-          
+
           <div className={`${styles.statusBadge} ${styles.statusSuccess}`}>
             Active
           </div>
