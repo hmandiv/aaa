@@ -199,11 +199,11 @@ const TokenDetailsPage = () => {
 
         const [tvlRes, metaRes, searchRes, alloRes] = await Promise.all([
           axios.get(
-            `https://free-api.vestige.fi/asset/${assetId}/tvl/simple/7D?currency=USD`
+            `https://api.vestigelabs.org/asset/${assetId}/tvl/simple/7D?currency=USD`
           ),
-          axios.get(`https://free-api.vestige.fi/asset/${assetId}`),
+          axios.get(`https://api.vestigelabs.org/asset/${assetId}`),
           axios.get(
-            `https://free-api.vestige.fi/assets/search?query=${assetId}&page=0&page_size=1`
+            `https://api.vestigelabs.org/assets/search?query=${assetId}&page=0&page_size=1`
           ),
           axios.get("https://commons.allo.info/api/v1/datasets/metadata"),
         ]);
@@ -266,7 +266,7 @@ const TokenDetailsPage = () => {
       try {
         if (!assetID) return;
         const res = await axios.get(
-          `https://free-api.vestige.fi/asset/${assetID}/prices/simple/${priceInterval}`
+          `https://api.vestigelabs.org/asset/${assetID}/prices/simple/${priceInterval}`
         );
         setPriceHistory(res.data || []);
       } catch (err) {
@@ -290,7 +290,7 @@ const TokenDetailsPage = () => {
         const poolData = await Promise.all(
           poolProviders.map(async (provider) => {
             const res = await axios.get(
-              `https://free-api.vestige.fi/asset/${assetID}/pools/${provider}`
+              `https://api.vestigelabs.org/asset/${assetID}/pools/${provider}`
             );
             return res.data || [];
           })
@@ -453,7 +453,7 @@ const TokenDetailsPage = () => {
       try {
         if (!assetID) return;
         const res = await axios.get(
-          `https://free-api.vestige.fi/asset/${assetID}/tvl/simple/30D?currency=usd`
+          `https://api.vestigelabs.org/asset/${assetID}/tvl/simple/30D?currency=usd`
         );
         setTvlHistory(res.data || []);
       } catch (err) {

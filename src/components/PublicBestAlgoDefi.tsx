@@ -94,19 +94,19 @@ const PAGE_SIZE = 15;
 // API endpoint configuration with proper typing
 const API_ENDPOINTS = {
   ASSET_POOLS: (assetID: string): string =>
-    `https://free-api.vestige.fi/asset/${assetID}/pools?include_all=true`,
+    `https://api.vestigelabs.org/asset/${assetID}/pools?include_all=true`,
   PACT_POOLS: (name: string): string =>
     `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${name}`,
   TINYMAN_POOL: (address: string): string =>
     `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`,
   ASSET_PRICE: (assetID: string): string =>
-    `https://free-api.vestige.fi/asset/${assetID}/price?currency=usd`,
+    `https://api.vestigelabs.org/asset/${assetID}/price?currency=usd`,
   PRICE_CHANGE: (assetID: string, interval: string): string =>
-    `https://free-api.vestige.fi/asset/${assetID}/prices/simple/${interval}`,
+    `https://api.vestigelabs.org/asset/${assetID}/prices/simple/${interval}`,
   FULL_TVL: (assetID: string): string =>
-    `https://free-api.vestige.fi/asset/${assetID}/tvl/simple/7D?currency=USD`,
+    `https://api.vestigelabs.org/asset/${assetID}/tvl/simple/7D?currency=USD`,
   HOLDERS: (assetID: string): string =>
-    `https://free-api.vestige.fi/asset/${assetID}/holders?limit=10000000`,
+    `https://api.vestigelabs.org/asset/${assetID}/holders?limit=10000000`,
   GET_AIRDROPS: `${BASE_URL}/get-airdrops`,
 };
 

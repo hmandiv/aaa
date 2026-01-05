@@ -83,13 +83,20 @@ const stableTVLAssetIDs = tokenData
 
 // API endpoint configuration with proper typing
 const API_ENDPOINTS = {
-  ASSET_POOLS: (assetID: string): string => `https://free-api.vestige.fi/asset/${assetID}/pools?include_all=true`,
-  PACT_POOLS: (name: string): string => `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${name}`,
-  TINYMAN_POOL: (address: string): string => `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`,
-  ASSET_PRICE: (assetID: string): string => `https://free-api.vestige.fi/asset/${assetID}/price?currency=usd`,
-  PRICE_CHANGE: (assetID: string, interval: string): string => `https://free-api.vestige.fi/asset/${assetID}/prices/simple/${interval}`,
-  FULL_TVL: (assetID: string): string => `https://free-api.vestige.fi/asset/${assetID}/tvl/simple/7D?currency=USD`,
-  HOLDERS: (assetID: string): string => `https://free-api.vestige.fi/asset/${assetID}/holders?limit=10000000`,
+  ASSET_POOLS: (assetID: string): string =>
+    `https://api.vestigelabs.org/asset/${assetID}/pools?include_all=true`,
+  PACT_POOLS: (name: string): string =>
+    `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${name}`,
+  TINYMAN_POOL: (address: string): string =>
+    `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`,
+  ASSET_PRICE: (assetID: string): string =>
+    `https://api.vestigelabs.org/asset/${assetID}/price?currency=usd`,
+  PRICE_CHANGE: (assetID: string, interval: string): string =>
+    `https://api.vestigelabs.org/asset/${assetID}/prices/simple/${interval}`,
+  FULL_TVL: (assetID: string): string =>
+    `https://api.vestigelabs.org/asset/${assetID}/tvl/simple/7D?currency=USD`,
+  HOLDERS: (assetID: string): string =>
+    `https://api.vestigelabs.org/asset/${assetID}/holders?limit=10000000`,
 };
 
 // Constants
@@ -101,44 +108,54 @@ const BestAlgoDefi: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [priceChangeInterval, setPriceChangeInterval] = useState<string>("1D");
   const [searchText, setSearchText] = useState<string>("");
-  const [sortField, setSortField] = useState<keyof TokenWithMetrics>("totalTVL");
+  const [sortField, setSortField] =
+    useState<keyof TokenWithMetrics>("totalTVL");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const [expandedToken, setExpandedToken] = useState<string | null>(null);
 
   // Memoized sort handler to avoid recreating on each render
-  const handleSort = useCallback((field: keyof TokenWithMetrics) => {
-    const newDirection = sortField === field && sortDirection === "desc" ? "asc" : "desc";
-    setSortField(field);
-    setSortDirection(newDirection);
+  const handleSort = useCallback(
+    (field: keyof TokenWithMetrics) => {
+      const newDirection =
+        sortField === field && sortDirection === "desc" ? "asc" : "desc";
+      setSortField(field);
+      setSortDirection(newDirection);
 
-    const sorted = [...sortedTokens].sort((a, b) => {
-      const valueA = a[field] ?? 0;
-      const valueB = b[field] ?? 0;
-      const result = valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
-      return newDirection === "asc" ? result : -result;
-    });
+      const sorted = [...sortedTokens].sort((a, b) => {
+        const valueA = a[field] ?? 0;
+        const valueB = b[field] ?? 0;
+        const result = valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+        return newDirection === "asc" ? result : -result;
+      });
 
-    setSortedTokens(sorted);
-  }, [sortField, sortDirection, sortedTokens]);
+      setSortedTokens(sorted);
+    },
+    [sortField, sortDirection, sortedTokens]
+  );
 
   // Fetch data function
   useEffect(() => {
     const fetchAllData = async (): Promise<void> => {
       try {
         setIsLoading(true);
-        
+
         // Step 1: Fetch pools data
         const poolsData = await fetchPoolsData();
-        
+
         // Step 2: Fetch additional token metrics in parallel
         const [priceData, fullTVLData, holdersData] = await Promise.all([
           fetchPriceData(),
           fetchFullTVLData(),
-          fetchHoldersData()
+          fetchHoldersData(),
         ]);
-        
+
         // Step 3: Combine all data and sort
-        const combinedData = combineTokenData(poolsData, priceData, fullTVLData, holdersData);
+        const combinedData = combineTokenData(
+          poolsData,
+          priceData,
+          fullTVLData,
+          holdersData
+        );
         setSortedTokens(combinedData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -156,46 +173,50 @@ const BestAlgoDefi: React.FC = () => {
     const poolUSDValues: Record<string, number> = {};
     const tokenTVL: Record<string, number> = {};
     const processedPairs = new Set<string>();
-    const assetIDSet = new Set(tokenData.map(t => t.assetID));
+    const assetIDSet = new Set(tokenData.map((t) => t.assetID));
 
     // Fetch Tinyman and PactFi pools in parallel
     const [tinymanPoolResponses, pactFiPoolResponses] = await Promise.all([
       Promise.all(
-        tokenData.map(token => 
+        tokenData.map((token) =>
           fetch(API_ENDPOINTS.ASSET_POOLS(token.assetID))
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((data: TinymanPool[]) => data)
             .catch(() => [] as TinymanPool[])
         )
       ),
       Promise.all(
-        tokenData.map(token => 
+        tokenData.map((token) =>
           fetch(API_ENDPOINTS.PACT_POOLS(token.name))
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((data: PactFiResponse) => data)
             .catch(() => ({ results: [] } as PactFiResponse))
         )
-      )
+      ),
     ]);
 
     // Process Tinyman pools
     tokenData.forEach((token, index) => {
       const pools = tinymanPoolResponses[index] || [];
 
-      stableTVLAssetIDs.forEach(stableID => {
+      stableTVLAssetIDs.forEach((stableID) => {
         const pairKey = [token.assetID.toString(), stableID.toString()]
           .sort()
           .join("/");
 
         const relevantPools = pools.filter(
-          (pool: TinymanPool) => 
+          (pool: TinymanPool) =>
             ["T3", "T2", "TM"].includes(pool.provider) &&
-            ((pool.asset_1_id === parseInt(token.assetID) && pool.asset_2_id === parseInt(stableID)) ||
-             (pool.asset_2_id === parseInt(token.assetID) && pool.asset_1_id === parseInt(stableID)))
+            ((pool.asset_1_id === parseInt(token.assetID) &&
+              pool.asset_2_id === parseInt(stableID)) ||
+              (pool.asset_2_id === parseInt(token.assetID) &&
+                pool.asset_1_id === parseInt(stableID)))
         );
 
         if (relevantPools.length > 0) {
-          poolAddresses[pairKey] = relevantPools.map((pool: TinymanPool) => pool.address);
+          poolAddresses[pairKey] = relevantPools.map(
+            (pool: TinymanPool) => pool.address
+          );
         }
       });
     });
@@ -213,7 +234,8 @@ const BestAlgoDefi: React.FC = () => {
 
           if (!processedPairs.has(pairKey)) {
             processedPairs.add(pairKey);
-            poolUSDValues[pairKey] = (poolUSDValues[pairKey] || 0) + parseFloat(pool.tvl_usd);
+            poolUSDValues[pairKey] =
+              (poolUSDValues[pairKey] || 0) + parseFloat(pool.tvl_usd);
           }
         }
       });
@@ -225,29 +247,36 @@ const BestAlgoDefi: React.FC = () => {
         Promise.all(
           addresses.map((address: string) =>
             fetch(API_ENDPOINTS.TINYMAN_POOL(address))
-              .then(res => res.json())
-              .then((data: TinymanPoolData) => parseFloat(data.liquidity_in_usd) || 0)
+              .then((res) => res.json())
+              .then(
+                (data: TinymanPoolData) =>
+                  parseFloat(data.liquidity_in_usd) || 0
+              )
               .catch(() => 0)
           )
         ).then((values: number[]) => {
-          poolUSDValues[pairKey] = (poolUSDValues[pairKey] || 0) + values.reduce((sum: number, value: number) => sum + value, 0);
+          poolUSDValues[pairKey] =
+            (poolUSDValues[pairKey] || 0) +
+            values.reduce((sum: number, value: number) => sum + value, 0);
         })
     );
 
     await Promise.all(usdValuePromises);
 
     // Calculate total TVL for each token
-    tokenData.forEach(token => {
-      const tokenPairs = Object.keys(poolUSDValues).filter(pairKey => {
+    tokenData.forEach((token) => {
+      const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) => {
         const [id1, id2] = pairKey.split("/");
-        return id1 === token.assetID.toString() || id2 === token.assetID.toString();
+        return (
+          id1 === token.assetID.toString() || id2 === token.assetID.toString()
+        );
       });
 
       const totalTVL = tokenPairs.reduce(
         (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
         0
       );
-      
+
       tokenTVL[token.name] = totalTVL;
     });
 
@@ -258,21 +287,23 @@ const BestAlgoDefi: React.FC = () => {
   const fetchPriceData = async (): Promise<PriceDataResult> => {
     // Fetch latest prices
     const fetchLatestPrices = await Promise.all(
-      tokenData.map(token =>
+      tokenData.map((token) =>
         fetch(API_ENDPOINTS.ASSET_PRICE(token.assetID))
-          .then(res => res.json())
+          .then((res) => res.json())
           .then((data: AssetPrice) => ({
             assetID: token.assetID,
-            price: parseFloat(data.price || "0")
+            price: parseFloat(data.price || "0"),
           }))
           .catch(() => ({ assetID: token.assetID, price: 0 }))
       )
     );
 
     // Fetch price changes
-    const fetchPriceChangePromises = tokenData.map(token => {
-      return fetch(API_ENDPOINTS.PRICE_CHANGE(token.assetID, priceChangeInterval))
-        .then(res => res.json())
+    const fetchPriceChangePromises = tokenData.map((token) => {
+      return fetch(
+        API_ENDPOINTS.PRICE_CHANGE(token.assetID, priceChangeInterval)
+      )
+        .then((res) => res.json())
         .then((priceData: PriceData[]) => {
           if (!priceData || priceData.length === 0) {
             return { assetID: token.assetID, change: 0 };
@@ -281,7 +312,8 @@ const BestAlgoDefi: React.FC = () => {
           // Calculate percentage change
           const startPrice = priceData[0]?.price || 0;
           const endPrice = priceData[priceData.length - 1]?.price || 0;
-          const change = startPrice > 0 ? ((endPrice - startPrice) / startPrice) * 100 : 0;
+          const change =
+            startPrice > 0 ? ((endPrice - startPrice) / startPrice) * 100 : 0;
 
           return { assetID: token.assetID, change };
         })
@@ -313,60 +345,54 @@ const BestAlgoDefi: React.FC = () => {
   // Fetch full TVL data
   const fetchFullTVLData = async (): Promise<Record<string, number>> => {
     const fetchFullTVL = await Promise.all(
-      tokenData.map(token =>
+      tokenData.map((token) =>
         fetch(API_ENDPOINTS.FULL_TVL(token.assetID))
-          .then(res => res.json())
+          .then((res) => res.json())
           .then((data: TVLData[]) => ({
             assetID: token.assetID,
-            fullTVL: parseFloat(data[data.length - 1]?.tvl || "0")
+            fullTVL: parseFloat(data[data.length - 1]?.tvl || "0"),
           }))
           .catch(() => ({ assetID: token.assetID, fullTVL: 0 }))
       )
     );
 
-    return fetchFullTVL.reduce(
-      (acc: Record<string, number>, curr) => {
-        acc[curr.assetID] = curr.fullTVL;
-        return acc;
-      },
-      {}
-    );
+    return fetchFullTVL.reduce((acc: Record<string, number>, curr) => {
+      acc[curr.assetID] = curr.fullTVL;
+      return acc;
+    }, {});
   };
 
   // Fetch holders data
   const fetchHoldersData = async (): Promise<Record<string, number>> => {
     const fetchHolders = await Promise.all(
-      tokenData.map(token =>
+      tokenData.map((token) =>
         fetch(API_ENDPOINTS.HOLDERS(token.assetID))
-          .then(res => res.json())
+          .then((res) => res.json())
           .then((data: any[]) => ({
             assetID: token.assetID,
-            holders: data.length || 0
+            holders: data.length || 0,
           }))
           .catch(() => ({ assetID: token.assetID, holders: 0 }))
       )
     );
 
-    return fetchHolders.reduce(
-      (acc: Record<string, number>, curr) => {
-        acc[curr.assetID] = curr.holders;
-        return acc;
-      },
-      {}
-    );
+    return fetchHolders.reduce((acc: Record<string, number>, curr) => {
+      acc[curr.assetID] = curr.holders;
+      return acc;
+    }, {});
   };
 
   // Combine all token data
   const combineTokenData = (
-    tokenTVL: Record<string, number>, 
-    priceData: PriceDataResult, 
-    fullTVLMap: Record<string, number>, 
+    tokenTVL: Record<string, number>,
+    priceData: PriceDataResult,
+    fullTVLMap: Record<string, number>,
     holdersMap: Record<string, number>
   ): TokenWithMetrics[] => {
     const { latestPrices, priceChangesMap } = priceData;
 
     return tokenData
-      .map(token => ({
+      .map((token) => ({
         ...token,
         totalTVL: tokenTVL[token.name] || 0,
         fullTVL: fullTVLMap[token.assetID] || 0,
@@ -375,14 +401,14 @@ const BestAlgoDefi: React.FC = () => {
         priceChange24H: priceChangesMap[token.assetID] || 0,
         memeToken: token.memeToken ?? false, // Ensure memeToken is always a boolean
         useCaseToken: token.useCaseToken ?? false,
-        wrappedAsset: token.wrappedAsset ?? false
+        wrappedAsset: token.wrappedAsset ?? false,
       }))
       .sort((a, b) => b.totalTVL - a.totalTVL);
   };
 
   // Filter tokens based on search
   const filteredTokens = sortedTokens.filter(
-    token =>
+    (token) =>
       token.name.toLowerCase().includes(searchText.toLowerCase()) ||
       token.assetID.toString().includes(searchText)
   );
@@ -400,10 +426,13 @@ const BestAlgoDefi: React.FC = () => {
   }, []);
 
   // Render sort icon helper
-  const renderSortIcon = useCallback((field: string) => {
-    if (sortField !== field) return <FaSort />;
-    return sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />;
-  }, [sortField, sortDirection]);
+  const renderSortIcon = useCallback(
+    (field: string) => {
+      if (sortField !== field) return <FaSort />;
+      return sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />;
+    },
+    [sortField, sortDirection]
+  );
 
   // Token card component (extracted for better organization)
   interface TokenCardProps {
@@ -434,9 +463,7 @@ const BestAlgoDefi: React.FC = () => {
         <button
           className={styles.expandButton}
           onClick={() =>
-            setExpandedToken(
-              expandedToken === token.name ? null : token.name
-            )
+            setExpandedToken(expandedToken === token.name ? null : token.name)
           }
         >
           {expandedToken === token.name ? <FaSortUp /> : <FaSortDown />}
@@ -551,10 +578,7 @@ const BestAlgoDefi: React.FC = () => {
         rel="noopener noreferrer"
         className={styles.allo}
       >
-        <img
-          src="https://allo.info/favicons/favicon-16x16.png"
-          alt="Allo"
-        />
+        <img src="https://allo.info/favicons/favicon-16x16.png" alt="Allo" />
       </a>
       <a
         href={token.xLink}
@@ -593,9 +617,7 @@ const BestAlgoDefi: React.FC = () => {
   // Interval selector component
   const IntervalSelector: React.FC = () => (
     <div className={styles.intervalFilterContainer}>
-      <label htmlFor="intervalSelector">
-        Select Price Change Interval:
-      </label>
+      <label htmlFor="intervalSelector">Select Price Change Interval:</label>
       <select
         id="intervalSelector"
         value={priceChangeInterval}
@@ -612,7 +634,7 @@ const BestAlgoDefi: React.FC = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Best Algo Defi Tokens</h1>
-      
+
       {isLoading ? (
         <div className={styles.loadingContainer}>
           <FaTruckLoading className={styles.loadingIcon} />
@@ -626,7 +648,7 @@ const BestAlgoDefi: React.FC = () => {
           <div className={styles.desktopView}>
             <div className={styles.tokenTable}>
               <IntervalSelector />
-              
+
               <div className={styles.tokenRowHeader}>
                 <div className={styles.tokenCell}>Logo</div>
                 <div
@@ -679,7 +701,7 @@ const BestAlgoDefi: React.FC = () => {
                 </div>
                 <div className={styles.tokenCell}>Links</div>
               </div>
-              
+
               {displayedTokens.map((token) => (
                 <div key={token.name} className={styles.tokenRow}>
                   <div className={styles.tokenCell}>
@@ -728,19 +750,19 @@ const BestAlgoDefi: React.FC = () => {
                   </div>
                 </div>
               ))}
-              
+
               <PaginationControls />
             </div>
           </div>
-          
+
           {/* Mobile View */}
           <div className={styles.mobileView}>
             <IntervalSelector />
-            
+
             {displayedTokens.map((token) => (
               <TokenCardMobile key={token.name} token={token} />
             ))}
-            
+
             <PaginationControls />
           </div>
         </>

@@ -10,7 +10,7 @@ export const AaaStats = () => {
   );
 
   const assetId = "2004387843"; // AAA Token Asset ID
-  const vestigeApiUrl = `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`;
+  const vestigeApiUrl = `https://api.vestigelabs.org/asset/${assetId}/price?currency=usd`;
 
   useEffect(() => {
     const fetchPrices = async () => {

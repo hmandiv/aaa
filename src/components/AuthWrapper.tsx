@@ -27,8 +27,8 @@ const AuthWrapper = () => {
   const [disconnecting, setDisconnecting] = useState(false); // New state to handle recursion
 
   const apiClient = axios.create({
-    baseURL: "http://localhost:5000/api/v1",
-    // baseURL: "https://aaa-api-4lv4.onrender.com/api/v1",
+    //baseURL: "http://localhost:5000/api/v1",
+    baseURL: "https://aaa-api-4lv4.onrender.com/api/v1",
     headers: { "Content-Type": "application/json" },
   });
 

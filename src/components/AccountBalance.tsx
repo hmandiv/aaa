@@ -13,7 +13,7 @@ export const AccountBalance = ({ userId }: AccountBalanceProps) => {
 
   const BASE_URL = "https://aaa-api-4lv4.onrender.com/api/v1/pay";
   const assetId = "2004387843"; // AAA Token Asset ID
-  const vestigeApiUrl = `https://free-api.vestige.fi/asset/${assetId}/price?currency=usd`;
+  const vestigeApiUrl = `https://api.vestigelabs.org/asset/${assetId}/price?currency=usd`;
 
   useEffect(() => {
     if (userId) {
