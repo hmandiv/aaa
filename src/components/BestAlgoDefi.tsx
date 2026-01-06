@@ -228,89 +228,89 @@ const BestAlgoDefi: React.FC = () => {
     ]);
 
     // Process Tinyman pools
-    tokenData.forEach((token, index) => {
-      const pools = tinymanPoolResponses[index] || [];
+    // tokenData.forEach((token, index) => {
+    //   const pools = tinymanPoolResponses[index] || [];
 
-      stableTVLAssetIDs.forEach((stableID) => {
-        const pairKey = [token.assetID.toString(), stableID.toString()]
-          .sort()
-          .join("/");
+    //   stableTVLAssetIDs.forEach((stableID) => {
+    //     const pairKey = [token.assetID.toString(), stableID.toString()]
+    //       .sort()
+    //       .join("/");
 
-        const relevantPools = pools.filter(
-          (pool: TinymanPool) =>
-            ["T3", "T2", "TM"].includes(pool.provider) &&
-            ((pool.asset_1_id === parseInt(token.assetID) &&
-              pool.asset_2_id === parseInt(stableID)) ||
-              (pool.asset_2_id === parseInt(token.assetID) &&
-                pool.asset_1_id === parseInt(stableID)))
-        );
+    //     const relevantPools = pools.filter(
+    //       (pool: TinymanPool) =>
+    //         ["T3", "T2", "TM"].includes(pool.provider) &&
+    //         ((pool.asset_1_id === parseInt(token.assetID) &&
+    //           pool.asset_2_id === parseInt(stableID)) ||
+    //           (pool.asset_2_id === parseInt(token.assetID) &&
+    //             pool.asset_1_id === parseInt(stableID)))
+    //     );
 
-        if (relevantPools.length > 0) {
-          poolAddresses[pairKey] = relevantPools.map(
-            (pool: TinymanPool) => pool.address
-          );
-        }
-      });
-    });
+    //     if (relevantPools.length > 0) {
+    //       poolAddresses[pairKey] = relevantPools.map(
+    //         (pool: TinymanPool) => pool.address
+    //       );
+    //     }
+    //   });
+    // });
 
     // Process PactFi pools
-    tokenData.forEach((token, index) => {
-      const pools = pactFiPoolResponses[index]?.results || [];
+    // tokenData.forEach((token, index) => {
+    //   const pools = pactFiPoolResponses[index]?.results || [];
 
-      pools.forEach((pool: PactFiPool) => {
-        const [asset1, asset2] = pool.assets;
-        if (assetIDSet.has(asset1.id) && assetIDSet.has(asset2.id)) {
-          const pairKey = [asset1.id.toString(), asset2.id.toString()]
-            .sort()
-            .join("/");
+    //   pools.forEach((pool: PactFiPool) => {
+    //     const [asset1, asset2] = pool.assets;
+    //     if (assetIDSet.has(asset1.id) && assetIDSet.has(asset2.id)) {
+    //       const pairKey = [asset1.id.toString(), asset2.id.toString()]
+    //         .sort()
+    //         .join("/");
 
-          if (!processedPairs.has(pairKey)) {
-            processedPairs.add(pairKey);
-            poolUSDValues[pairKey] =
-              (poolUSDValues[pairKey] || 0) + parseFloat(pool.tvl_usd);
-          }
-        }
-      });
-    });
+    //       if (!processedPairs.has(pairKey)) {
+    //         processedPairs.add(pairKey);
+    //         poolUSDValues[pairKey] =
+    //           (poolUSDValues[pairKey] || 0) + parseFloat(pool.tvl_usd);
+    //       }
+    //     }
+    //   });
+    // });
 
     // Fetch Tinyman USD values
-    const usdValuePromises = Object.entries(poolAddresses).map(
-      ([pairKey, addresses]) =>
-        Promise.all(
-          addresses.map((address: string) =>
-            fetch(API_ENDPOINTS.TINYMAN_POOL(address))
-              .then((res) => res.json())
-              .then(
-                (data: TinymanPoolData) =>
-                  parseFloat(data.liquidity_in_usd) || 0
-              )
-              .catch(() => 0)
-          )
-        ).then((values: number[]) => {
-          poolUSDValues[pairKey] =
-            (poolUSDValues[pairKey] || 0) +
-            values.reduce((sum: number, value: number) => sum + value, 0);
-        })
-    );
+    // const usdValuePromises = Object.entries(poolAddresses).map(
+    //   ([pairKey, addresses]) =>
+    //     Promise.all(
+    //       addresses.map((address: string) =>
+    //         fetch(API_ENDPOINTS.TINYMAN_POOL(address))
+    //           .then((res) => res.json())
+    //           .then(
+    //             (data: TinymanPoolData) =>
+    //               parseFloat(data.liquidity_in_usd) || 0
+    //           )
+    //           .catch(() => 0)
+    //       )
+    //     ).then((values: number[]) => {
+    //       poolUSDValues[pairKey] =
+    //         (poolUSDValues[pairKey] || 0) +
+    //         values.reduce((sum: number, value: number) => sum + value, 0);
+    //     })
+    // );
 
-    await Promise.all(usdValuePromises);
+    // await Promise.all(usdValuePromises);
 
     // Calculate total TVL for each token
-    tokenData.forEach((token) => {
-      const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) => {
-        const [id1, id2] = pairKey.split("/");
-        return (
-          id1 === token.assetID.toString() || id2 === token.assetID.toString()
-        );
-      });
+    // tokenData.forEach((token) => {
+    //   const tokenPairs = Object.keys(poolUSDValues).filter((pairKey) => {
+    //     const [id1, id2] = pairKey.split("/");
+    //     return (
+    //       id1 === token.assetID.toString() || id2 === token.assetID.toString()
+    //     );
+    //   });
 
-      const totalTVL = tokenPairs.reduce(
-        (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
-        0
-      );
+    //   const totalTVL = tokenPairs.reduce(
+    //     (sum, pairKey) => sum + (poolUSDValues[pairKey] || 0),
+    //     0
+    //   );
 
-      tokenTVL[token.name] = totalTVL;
-    });
+    //   tokenTVL[token.name] = totalTVL;
+    // });
 
     return tokenTVL;
   };
