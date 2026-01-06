@@ -81,22 +81,53 @@ const stableTVLAssetIDs = tokenData
   .filter((token) => token.stableTVL)
   .map((token) => token.assetID);
 
-// API endpoint configuration with proper typing
+const VESTIGE_BASE = "https://api.vestigelabs.org";
+
+// Algorand MainNet USDC ASA id
+const USDC_ASSET_ID = 31566704;
+
+const INTERVAL_SECONDS: Record<string, number> = {
+  "1D": 60 * 60, // use 1H candles to compute 1D change
+  "7D": 24 * 60 * 60, // use 1D candles to compute 7D change
+  "30D": 24 * 60 * 60, // use 1D candles to compute 30D change
+};
+
+const RANGE_SECONDS: Record<string, number> = {
+  "1D": 24 * 60 * 60,
+  "7D": 7 * 24 * 60 * 60,
+  "30D": 30 * 24 * 60 * 60,
+};
+
 const API_ENDPOINTS = {
+  // Vestige v4
   ASSET_POOLS: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/pools?network_id=0&asset_1_id${assetID}&offset=0&order_dir=desc`,
+    `${VESTIGE_BASE}/pools?network_id=0&asset_1_id=${assetID}&limit=250&offset=0&order_dir=desc`,
+
+  ASSET_PRICE: (assetID: string): string =>
+    `${VESTIGE_BASE}/assets/price?asset_ids=${assetID}&network_id=0&denominating_asset_id=${USDC_ASSET_ID}`,
+
+  ASSET_CANDLES: (
+    assetID: string,
+    intervalSeconds: number,
+    start: number,
+    end: number
+  ): string =>
+    `${VESTIGE_BASE}/assets/${assetID}/candles?network_id=0&denominating_asset_id=${USDC_ASSET_ID}&interval=${intervalSeconds}&start=${start}&end=${end}`,
+
+  ASSET_HISTORY: (
+    assetID: string,
+    intervalSeconds: number,
+    start: number,
+    end: number
+  ): string =>
+    `${VESTIGE_BASE}/assets/${assetID}/history?network_id=0&denominating_asset_id=${USDC_ASSET_ID}&interval=${intervalSeconds}&start=${start}&end=${end}`,
+
+  // Pact / Tinyman (unchanged)
   PACT_POOLS: (name: string): string =>
     `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${name}`,
+
   TINYMAN_POOL: (address: string): string =>
     `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`,
-  ASSET_PRICE: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/price?asset_ids=${assetID}&network_id=0&denominating_asset_id=1`,
-  PRICE_CHANGE: (assetID: string, interval: string): string =>
-    `https://api.vestigelabs.org/asset/${assetID}/prices/simple/${interval}`,
-  FULL_TVL: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/price?asset_ids=${assetID}/tvl/simple/7D?currency=USD`,
-  HOLDERS: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/${assetID}/holders?limit=10000000`,
 };
 
 // Constants
@@ -143,11 +174,12 @@ const BestAlgoDefi: React.FC = () => {
         const poolsData = await fetchPoolsData();
 
         // Step 2: Fetch additional token metrics in parallel
-        const [priceData, fullTVLData, holdersData] = await Promise.all([
+        const [priceData, fullTVLData] = await Promise.all([
           fetchPriceData(),
           fetchFullTVLData(),
-          fetchHoldersData(),
         ]);
+
+        const holdersData: Record<string, number> = {};
 
         // Step 3: Combine all data and sort
         const combinedData = combineTokenData(
@@ -284,54 +316,73 @@ const BestAlgoDefi: React.FC = () => {
   };
 
   // Fetch price data
+  type VestigeAssetPrice = {
+    asset_id: number;
+    price: number;
+  };
+
+  type VestigeCandle = {
+    timestamp: number;
+    open: number;
+    close: number;
+  };
+
   const fetchPriceData = async (): Promise<PriceDataResult> => {
-    // Fetch latest prices
-    const fetchLatestPrices = await Promise.all(
-      tokenData.map((token) =>
-        fetch(API_ENDPOINTS.ASSET_PRICE(token.assetID))
-          .then((res) => res.json())
-          .then((data: AssetPrice) => ({
-            assetID: token.assetID,
-            price: parseFloat(data.price || "0"),
-          }))
-          .catch(() => ({ assetID: token.assetID, price: 0 }))
-      )
+    const now = Math.floor(Date.now() / 1000);
+    const rangeSeconds =
+      RANGE_SECONDS[priceChangeInterval] ?? RANGE_SECONDS["1D"];
+    const intervalSeconds =
+      INTERVAL_SECONDS[priceChangeInterval] ?? INTERVAL_SECONDS["1D"];
+    const start = now - rangeSeconds;
+
+    // Latest prices
+    const latest = await Promise.all(
+      tokenData.map(async (token) => {
+        try {
+          const res = await fetch(API_ENDPOINTS.ASSET_PRICE(token.assetID));
+          const data = (await res.json()) as VestigeAssetPrice[];
+          const price = data?.[0]?.price ?? 0;
+          return { assetID: token.assetID, price };
+        } catch {
+          return { assetID: token.assetID, price: 0 };
+        }
+      })
     );
 
-    // Fetch price changes
-    const fetchPriceChangePromises = tokenData.map((token) => {
-      return fetch(
-        API_ENDPOINTS.PRICE_CHANGE(token.assetID, priceChangeInterval)
-      )
-        .then((res) => res.json())
-        .then((priceData: PriceData[]) => {
-          if (!priceData || priceData.length === 0) {
-            return { assetID: token.assetID, change: 0 };
-          }
+    // Price change from candles
+    const changes = await Promise.all(
+      tokenData.map(async (token) => {
+        try {
+          const url = API_ENDPOINTS.ASSET_CANDLES(
+            token.assetID,
+            intervalSeconds,
+            start,
+            now
+          );
+          const res = await fetch(url);
+          const candles = (await res.json()) as VestigeCandle[];
 
-          // Calculate percentage change
-          const startPrice = priceData[0]?.price || 0;
-          const endPrice = priceData[priceData.length - 1]?.price || 0;
+          if (!candles || candles.length < 2)
+            return { assetID: token.assetID, change: 0 };
+
+          const startPrice = candles[0]?.open ?? 0;
+          const endPrice = candles[candles.length - 1]?.close ?? 0;
+
           const change =
             startPrice > 0 ? ((endPrice - startPrice) / startPrice) * 100 : 0;
-
           return { assetID: token.assetID, change };
-        })
-        .catch(() => ({ assetID: token.assetID, change: 0 }));
-    });
-
-    const priceChanges = await Promise.all(fetchPriceChangePromises);
-
-    // Convert to maps for easier lookup
-    const latestPrices = fetchLatestPrices.reduce(
-      (acc: Record<string, number>, curr) => {
-        acc[curr.assetID] = curr.price;
-        return acc;
-      },
-      {}
+        } catch {
+          return { assetID: token.assetID, change: 0 };
+        }
+      })
     );
 
-    const priceChangesMap = priceChanges.reduce(
+    const latestPrices = latest.reduce((acc: Record<string, number>, curr) => {
+      acc[curr.assetID] = curr.price;
+      return acc;
+    }, {});
+
+    const priceChangesMap = changes.reduce(
       (acc: Record<string, number>, curr) => {
         acc[curr.assetID] = curr.change;
         return acc;
@@ -343,44 +394,60 @@ const BestAlgoDefi: React.FC = () => {
   };
 
   // Fetch full TVL data
+  type VestigeHistoryPoint = {
+    tvl: number;
+  };
+
   const fetchFullTVLData = async (): Promise<Record<string, number>> => {
-    const fetchFullTVL = await Promise.all(
-      tokenData.map((token) =>
-        fetch(API_ENDPOINTS.FULL_TVL(token.assetID))
-          .then((res) => res.json())
-          .then((data: TVLData[]) => ({
-            assetID: token.assetID,
-            fullTVL: parseFloat(data[data.length - 1]?.tvl || "0"),
-          }))
-          .catch(() => ({ assetID: token.assetID, fullTVL: 0 }))
-      )
+    const now = Math.floor(Date.now() / 1000);
+    const start = now - 7 * 24 * 60 * 60; // last 7 days
+    const intervalSeconds = 24 * 60 * 60; // daily points
+
+    const results = await Promise.all(
+      tokenData.map(async (token) => {
+        try {
+          const url = API_ENDPOINTS.ASSET_HISTORY(
+            token.assetID,
+            intervalSeconds,
+            start,
+            now
+          );
+          const res = await fetch(url);
+          const data = (await res.json()) as VestigeHistoryPoint[];
+
+          const last = data?.[data.length - 1];
+          return { assetID: token.assetID, fullTVL: last?.tvl ?? 0 };
+        } catch {
+          return { assetID: token.assetID, fullTVL: 0 };
+        }
+      })
     );
 
-    return fetchFullTVL.reduce((acc: Record<string, number>, curr) => {
+    return results.reduce((acc: Record<string, number>, curr) => {
       acc[curr.assetID] = curr.fullTVL;
       return acc;
     }, {});
   };
 
   // Fetch holders data
-  const fetchHoldersData = async (): Promise<Record<string, number>> => {
-    const fetchHolders = await Promise.all(
-      tokenData.map((token) =>
-        fetch(API_ENDPOINTS.HOLDERS(token.assetID))
-          .then((res) => res.json())
-          .then((data: any[]) => ({
-            assetID: token.assetID,
-            holders: data.length || 0,
-          }))
-          .catch(() => ({ assetID: token.assetID, holders: 0 }))
-      )
-    );
+  // const fetchHoldersData = async (): Promise<Record<string, number>> => {
+  //   const fetchHolders = await Promise.all(
+  //     tokenData.map((token) =>
+  //       fetch(API_ENDPOINTS.HOLDERS(token.assetID))
+  //         .then((res) => res.json())
+  //         .then((data: any[]) => ({
+  //           assetID: token.assetID,
+  //           holders: data.length || 0,
+  //         }))
+  //         .catch(() => ({ assetID: token.assetID, holders: 0 }))
+  //     )
+  //   );
 
-    return fetchHolders.reduce((acc: Record<string, number>, curr) => {
-      acc[curr.assetID] = curr.holders;
-      return acc;
-    }, {});
-  };
+  //   return fetchHolders.reduce((acc: Record<string, number>, curr) => {
+  //     acc[curr.assetID] = curr.holders;
+  //     return acc;
+  //   }, {});
+  // };
 
   // Combine all token data
   const combineTokenData = (
