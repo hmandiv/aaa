@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
-import LandingPage from "./components/LandingPage";
 import AuthWrapper from "./components/AuthWrapper";
 import Navbar from "./components/Navbar";
 import { PeraWalletProvider } from "./components/PeraWalletProvider";
@@ -12,8 +11,6 @@ import { AboutUs } from "./components/Aboutus";
 import { AAASwap } from "./components/AAASwap";
 import BestAlgoDefi from "./components/BestAlgoDefi";
 import { Contact } from "./components/contact";
-import { DisplayCurrentAirdrops } from "./components/DisplayCurrentAirdrops";
-import PublicBestAlgoDefi from "./components/PublicBestAlgoDefi";
 import TokenDetailsPage from "./components/TokenDetailsPage";
 import TokenBubbles from "./components/TokenBubbles";
 
@@ -34,7 +31,8 @@ const App = () => {
             <Route path="token-listing" element={<TokenListing />} />
             <Route path="swap-tokens" element={<AAASwap />} />
             {/* <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} /> */}
-            <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} />
+            <Route path="best-algo-defi" element={<BestAlgoDefi />} />
+            {/* <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} /> */}
             <Route path="/token-details" element={<TokenDetailsPage />} />
             <Route path="/algo-bubbles" element={<TokenBubbles />} />
           </Routes>
