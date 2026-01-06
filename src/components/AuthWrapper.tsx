@@ -52,8 +52,7 @@ const AuthWrapper = () => {
         setEmail(savedEmail || "");
       }
       const response = await axios.post(
-        `http://localhost:5000/api/v1/userDetails/get-user-details`,
-        // `https://aaa-api-4lv4.onrender.com/api/v1/userDetails/get-user-details`,
+        `https://aaa-api-4lv4.onrender.com/api/v1/userDetails/get-user-details`,
         {
           userId: savedUserId,
           email: savedEmail,
