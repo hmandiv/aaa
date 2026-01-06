@@ -84,17 +84,17 @@ const stableTVLAssetIDs = tokenData
 // API endpoint configuration with proper typing
 const API_ENDPOINTS = {
   ASSET_POOLS: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/${assetID}/pools?include_all=true`,
+    `https://api.vestigelabs.org/asset/pools?network_id=0&asset_1_id${assetID}&offset=0&order_dir=desc`,
   PACT_POOLS: (name: string): string =>
     `https://api.pact.fi/api/internal/pools?limit=50&offset=0&search=${name}`,
   TINYMAN_POOL: (address: string): string =>
     `https://mainnet.analytics.tinyman.org/api/v1/pools/${address}`,
   ASSET_PRICE: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/${assetID}/price?currency=usd`,
+    `https://api.vestigelabs.org/asset/price?asset_ids=${assetID}&network_id=0&denominating_asset_id=1`,
   PRICE_CHANGE: (assetID: string, interval: string): string =>
     `https://api.vestigelabs.org/asset/${assetID}/prices/simple/${interval}`,
   FULL_TVL: (assetID: string): string =>
-    `https://api.vestigelabs.org/asset/${assetID}/tvl/simple/7D?currency=USD`,
+    `https://api.vestigelabs.org/asset/price?asset_ids=${assetID}/tvl/simple/7D?currency=USD`,
   HOLDERS: (assetID: string): string =>
     `https://api.vestigelabs.org/asset/${assetID}/holders?limit=10000000`,
 };
