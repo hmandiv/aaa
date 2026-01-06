@@ -21,7 +21,6 @@ const App = () => {
         <PeraWalletProvider>
           <Navbar />
           <Routes>
-            {/* <Route path="/" element={<LandingPage />} /> */}
             <Route path="/" element={<AuthWrapper />} />
             <Route path="/referral/:referralCode" element={<AuthWrapper />} />
             <Route path="/terms-of-services" element={<TermsOfServices />} />
@@ -30,9 +29,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="token-listing" element={<TokenListing />} />
             <Route path="swap-tokens" element={<AAASwap />} />
-            {/* <Route path="current-airdrops" element={<DisplayCurrentAirdrops />} /> */}
             <Route path="best-algo-defi" element={<BestAlgoDefi />} />
-            {/* <Route path="best-algo-defi" element={<PublicBestAlgoDefi />} /> */}
             <Route path="/token-details" element={<TokenDetailsPage />} />
             <Route path="/algo-bubbles" element={<TokenBubbles />} />
           </Routes>
